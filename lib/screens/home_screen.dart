@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spooky_find/widgets/scare_level_dropdown.dart';
 import '../widgets/app_header.dart';
 import '../widgets/map_placeholder.dart';
-import '../widgets/scare_level_dropdown.dart';
+
 
 
 
@@ -9,8 +11,8 @@ class HomeScreen extends StatelessWidget{
     const HomeScreen({super.key});
 
     final List<String>_scareLevels = const [
-        'Mildly Haunted'
-        'Zombies Ahead'
+        'Mildly Haunted',
+        'Zombies Ahead',
         'Absolute Terror'
     ];
 
@@ -27,12 +29,12 @@ class HomeScreen extends StatelessWidget{
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 40),
                         ScareLevelDropdown(
                             selectedValue: selectedLevel,
                             items: _scareLevels,
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 40),
                         const MapPlaceholder(),
                         const SizedBox(height: 24),
                         Row(
@@ -40,11 +42,15 @@ class HomeScreen extends StatelessWidget{
                             children: [
                                 IconButton(
                                     onPressed: () {},
-                                    icon: Icon(Icons.camera_alt_outlined),
+                                    icon: SvgPicture.asset(
+                                      'assets/icons/home/camera_icon.svg'
+                                      ),
                                 ),
                                 IconButton(
                                     onPressed: () {},
-                                    icon: Icon(Icons.photo_library),
+                                    icon: SvgPicture.asset(
+                                      'assets/icons/home/camera_icon.svg'
+                                      ),
                                 ),
                             ],
                         ),
