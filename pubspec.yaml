@@ -68,7 +68,7 @@ flutter:
     - assets/icons/camera/
     - assets/icons/gallery/
     - assets\google_fonts\Creepster-Regular.ttf
-
+    - assets/data/
 
 
   # To add assets to your application, add an assets section, like this:
