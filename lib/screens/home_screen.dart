@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
-                        'assets/icons/home/camera.svg',
+                        'assets/icons/home/camera_icon.svg',
                         colorFilter: ColorFilter.mode(
                           colorScheme.secondary, // The color token
                           BlendMode.srcIn,       // Replaces all colored vector paths with the token color
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
-                        'assets/icons/home/gallery.svg',
+                        'assets/icons/home/photo_library_icon.svg',
                         colorFilter: ColorFilter.mode(
                           colorScheme.secondary, // The color token
                           BlendMode.srcIn,       // Replaces all colored vector paths with the token color
