@@ -1,44 +1,44 @@
-import 'package:latlong2/latlong.dart';
+import 'package:flutter/foundation.dart';
+import '../data/attraction_repository.dart';
+import '../models/attraction.dart';
 
+// Holds what the screen needs to show, and tells the screen when it changes.
+class AttractionsViewModel extends ChangeNotifier {
+  final AttractionRepository _repository = AttractionRepository();
 
-enum AttractionType { hauntedHouse, pumpkinPatch, cornMaze }
+  List<Attraction> _attractions = [];
+  bool _isLoading = false;
+  String? _errorMessage;
+  int _maxScareLevel = 3; 
+  
+  // The View can read these, but only the ViewModel can change them
+  List<Attraction> get attractions => List.unmodifiable(_attractions);
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+  
+  int get maxScareLevel => _maxScareLevel;
 
-class Attraction {
-  final String id;
-  final String name;
-  final AttractionType type;
-  final int scareLevel; 
-  final LatLng location;
-  final String address;
-  final String description;
+  // Only the haunts at or below the chosen scare level
+  List<Attraction> get visibleAttractions => _attractions
+      .where((attraction) => attraction.scareLevel <= _maxScareLevel)
+      .toList();
 
-  const Attraction({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.scareLevel,
-    required this.location,
-    required this.address,
-    required this.description,
-  });
+  Future<void> loadAttractions() async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners(); // "Something changed: redraw!"
 
-
-  factory Attraction.fromJson(Map<String, dynamic> json) {
-    return Attraction(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      type: AttractionType.values.byName(json['type'] as String),
-      scareLevel: json['scareLevel'] as int,
-      
-      location: LatLng(
-        (json['latitude'] as num).toDouble(),
-        (json['longitude'] as num).toDouble(),
-      ),
-      address: json['address'] as String,
-      description: json['description'] as String,
-    );
+    try {
+      _attractions = await _repository.loadAttractions();
+    } catch (error) {
+      _errorMessage = 'Could not load the haunts: $error';
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
-
-  @override
-  String toString() => '$name (${type.name}, scare level $scareLevel)';
-}
+    void setMaxScareLevel(int level) {
+    _maxScareLevel = level;
+    notifyListeners();
+  }
+  }
