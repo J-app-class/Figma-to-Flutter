@@ -8,11 +8,13 @@ class SpookyMap extends StatelessWidget {
     super.key,
     this.attractions = const [],
     this.userLocation,
+    this.onAttractionTapped,
   });
 
 
   final List<Attraction> attractions;
     final LatLng? userLocation;
+    final ValueChanged<Attraction>? onAttractionTapped;
 
   static const LatLng homeBase = LatLng(39.608910, -105.017779);
   
@@ -114,4 +116,4 @@ class SpookyMap extends StatelessWidget {
       ),
     );
   }
-}
+} 
